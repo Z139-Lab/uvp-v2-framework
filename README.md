@@ -1,145 +1,280 @@
-# uvp-framework
+\# UVP v2 Framework
 
-A GitHub-ready **Universality Validation Pipeline (UVP)** for cross-system criticality analysis.
+\*\*Universality Validation Pipeline for Cross-System Criticality Analysis\*\*
 
-This repo is structured to turn a mixed analysis workflow into a reproducible framework:
 
-- load CSV data from grid, UVP summaries, or LLM experiments
-- normalize each dataset into a canonical schema
-- scan stress × system-size structure
-- detect a heuristic critical point / critical band
-- prepare collapse-style outputs
-- estimate a provisional dynamical exponent `z`
-- save JSON / CSV / figures for paper workflows
 
-## What is included in this package
+A reproducible pipeline for detecting and comparing critical behavior across complex systems, including power grids, agent cascades, and synthetic models.
 
-This package already includes three example real inputs:
 
-- `data/raw/grid/summary_results.csv` → main multi-`L` UVP summary table
-- `data/raw/grid/micro_rule_summary_results.csv` → micro-rule robustness table
-- `data/raw/grid/probe_summary.csv` → probe / transition scan table
 
-## Canonical schema
+\---
 
-After normalization, UVP works with these columns:
 
-- `stress`
-- `L`
-- `phi`
-- `collapse_prob` (may be a proxy when raw collapse is unavailable)
-- `tau` (optional)
-- `n_seeds` (optional)
 
-Additional metadata columns are preserved when present, such as `chi`, `phi_var`, `cv`, `topology`, `variant`, and `regime`.
+\## Core Idea
 
-## Included configs
 
-- `configs/demo_toy.yaml` → minimal demo run
-- `configs/grid_default.yaml` → main `summary_results.csv`
-- `configs/grid_micro_rule.yaml` → micro-rule robustness
-- `configs/grid_probe.yaml` → probe / transition scan
-- `configs/llm_default.yaml` → placeholder for future LLM integration
 
-## Quick start
+This repository implements a unified workflow to:
+
+
+
+\- detect critical regions (σ\_c or finite-width bands)
+
+\- perform collapse-style transformations
+
+\- estimate scaling behavior across system sizes
+
+\- test robustness under rule and topology perturbations
+
+
+
+The goal is to transform heterogeneous simulation outputs into a \*\*comparable statistical physics representation\*\*.
+
+
+
+\---
+
+
+
+\## Pipeline
+
+
+
+
+
+raw data → normalization → stress scan → critical detection → collapse → z estimation
+
+
+
+
+
+\---
+
+
+
+\## Canonical Schema
+
+
+
+All inputs are mapped to:
+
+
+
+
+
+stress
+
+L
+
+phi
+
+collapse\_prob (optional / proxy)
+
+tau (optional)
+
+n\_seeds (optional)
+
+
+
+
+
+Additional metadata (e.g., `chi`, `phi\_var`, `cv`, `variant`, `topology`) are preserved.
+
+
+
+\---
+
+
+
+\## Included Datasets
+
+
+
+This package includes three representative inputs:
+
+
+
+\- `data/raw/grid/summary\_results.csv`  
+
+&#x20; → multi-system summary (best for scaling analysis)
+
+
+
+\- `data/raw/grid/micro\_rule\_summary\_results.csv`  
+
+&#x20; → micro-rule robustness dataset
+
+
+
+\- `data/raw/grid/probe\_summary.csv`  
+
+&#x20; → transition / collapse behavior (phase scan)
+
+
+
+\---
+
+
+
+\## Quick Start
+
+
 
 Install dependencies:
 
+
+
 ```bash
+
 python -m pip install -r requirements.txt
-```
 
-Run the toy demo:
 
-```bash
-python run_uvp.py --config configs/demo_toy.yaml
-```
 
-Run the main multi-`L` summary:
+Run demo:
 
-```bash
-python run_uvp.py --config configs/grid_default.yaml
-```
 
-Run the micro-rule robustness dataset:
 
-```bash
-python run_uvp.py --config configs/grid_micro_rule.yaml
-```
+python run\_uvp.py --config configs/demo\_toy.yaml
 
-Run the probe dataset:
 
-```bash
-python run_uvp.py --config configs/grid_probe.yaml
-```
 
-## Expected outputs
+Run main dataset:
 
-Each run writes into its configured `output_dir`, including:
 
-- `processed_input.csv`
-- `sigma_scan/scan.csv`
-- `critical/sigma_c.json`
-- `collapse/collapse_data.csv`
-- `z_fit/z_fit.json`
-- `figures/scan.png`
-- `figures/collapse.png`
-- `figures/z_scan.png` (when applicable)
 
-## Scientific status
+python run\_uvp.py --config configs/grid\_default.yaml
 
-This version is intended as a **framework foundation**, not a final claim engine.
+Demo (30 seconds)
 
-Important caveats:
+python run\_uvp.py --config configs/grid\_default.yaml
 
-- critical detection is still heuristic (`composite_scan`)
-- if `tau` is unavailable, `z` falls back to a proxy collapse scan
-- single-`L` inputs can produce phase-scan outputs but **cannot support a meaningful multi-size `z` estimate**
 
-That means:
 
-- `summary_results.csv` is the best current input for `z`-style analysis
-- `micro_rule_summary_results.csv` is best for robustness / invariance checks
-- `probe_summary.csv` is best for phase / transition storytelling, not for main universality claims
+Output:
 
-## PowerShell smoke test
 
-From the repo root:
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\smoke_test.ps1
-```
+results/grid\_main16/z\_fit/z\_fit.json
 
-## Upload to GitHub
+Expected Outputs
 
-```bash
+
+
+Each run produces:
+
+
+
+processed\_input.csv
+
+sigma\_scan/scan.csv
+
+critical/sigma\_c.json
+
+collapse/collapse\_data.csv
+
+z\_fit/z\_fit.json
+
+figures/scan.png
+
+figures/collapse.png
+
+figures/z\_scan.png
+
+Scientific Interpretation
+
+
+
+This framework distinguishes between three roles of data:
+
+
+
+Dataset	Role
+
+summary\_results	scaling / exponent estimation
+
+micro\_rule	universality robustness
+
+probe	phase / transition structure
+
+
+
+Important:
+
+
+
+meaningful z estimation requires multiple system sizes (L)
+
+single-system data produces phase scans, not scaling laws
+
+absence of tau triggers a proxy-based estimation
+
+Current Status
+
+
+
+This repository provides a framework foundation, not a final claim engine.
+
+
+
+Limitations:
+
+
+
+critical detection is heuristic (composite scan)
+
+z estimation depends on data richness
+
+collapse quality is not yet quantitatively optimized
+
+Research Direction
+
+
+
+The framework is designed to support investigations of:
+
+
+
+finite-width critical bands vs classical phase transitions
+
+scaling exponents under different dynamics
+
+cross-system universality (e.g., grids vs agent cascades)
+
+GitHub Usage
+
 git init
+
 git add .
+
 git commit -m "Initial UVP v2 framework"
-```
 
-Then create an empty GitHub repo and run:
+git remote add origin <YOUR\_REPO>
 
-```bash
-git remote add origin <YOUR_GITHUB_REPO_URL>
 git branch -M main
+
 git push -u origin main
-```
+
+PowerShell Quick Test
+
+cd "C:\\Users\\JUAN\\Desktop\\uvp-framework"
 
 
-## Step-by-step PowerShell test
 
-```powershell
-cd "C:\Users\JUAN\Desktop\uvp-framework"
-python -m pip install -r .\requirements.txt
-python .\run_uvp.py --config .\configs\demo_toy.yaml
-python .\run_uvp.py --config .\configs\grid_default.yaml
-python .\run_uvp.py --config .\configs\grid_micro_rule.yaml
-python .\run_uvp.py --config .\configs\grid_probe.yaml
-```
+python -m pip install -r .\\requirements.txt
 
-Or run the bundled PowerShell helper:
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\setup_and_test.ps1
-```
+
+python .\\run\_uvp.py --config .\\configs\\demo\_toy.yaml
+
+python .\\run\_uvp.py --config .\\configs\\grid\_default.yaml
+
+
+
+Or:
+
+
+
+powershell -ExecutionPolicy Bypass -File .\\scripts\\setup\_and\_test.ps1
+
