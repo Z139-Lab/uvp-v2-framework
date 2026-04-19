@@ -278,3 +278,18 @@ Or:
 
 powershell -ExecutionPolicy Bypass -File .\\scripts\\setup\_and\_test.ps1
 
+
+---
+
+## Reproducibility
+
+To reproduce the main results used in the paper:
+
+`ash
+python run_uvp.py --config configs/grid_default.yaml
+
+Key outputs:
+
+results/grid_main16/z_fit/z_fit.json
+results/grid_main16/critical/sigma_c.json
+
