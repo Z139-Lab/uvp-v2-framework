@@ -1,0 +1,27 @@
+source_type: grid
+input_path: data/raw/grid/probe_summary.csv
+output_dir: results/grid_probe
+
+columns:
+  stress: mw
+  collapse_prob: collapse_prob
+  tau: mean_collapse_step
+  n_seeds: runs
+  default_L: 118
+  phi: collapse_prob
+
+critical_detection:
+  method: composite_scan
+  band_half_width_points: 1
+
+z_fit:
+  method: auto
+  z_min: 0.8
+  z_max: 2.2
+  z_steps: 80
+
+plotting:
+  enabled: true
+
+relaxation:
+  enabled: true
