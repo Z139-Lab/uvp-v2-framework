@@ -1,0 +1,15 @@
+{
+  "sigma_c": 0.8,
+  "critical_band": [
+    0.8,
+    0.82
+  ],
+  "peak_score": 2.517792480151708,
+  "method": "composite_scan",
+  "confidence": "heuristic",
+  "support": {
+    "phi_var": 0.00020179565429682497,
+    "collapse_grad": 1.0096484374999977,
+    "chi_mean": 0.09668710937499983
+  }
+}

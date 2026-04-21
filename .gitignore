@@ -5,7 +5,6 @@
 *.log
 .env
 venv/
-results/
 data/raw/
 workspace/
 reports/

@@ -1,0 +1,8 @@
+stress,L,phi,collapse_prob,tau,n_seeds,regime,nonconv_prob,source
+20,118.0,0.0,0.0,10.0,6,all_alive,0.0,grid
+40,118.0,0.0,0.0,10.0,6,all_alive,0.0,grid
+60,118.0,0.0,0.0,10.0,6,all_alive,0.0,grid
+80,118.0,0.0,0.0,10.0,6,all_alive,0.0,grid
+100,118.0,0.0,0.0,10.0,6,all_alive,0.0,grid
+120,118.0,0.0,0.0,10.0,6,all_alive,0.0,grid
+140,118.0,0.0,0.0,10.0,6,all_alive,0.0,grid
