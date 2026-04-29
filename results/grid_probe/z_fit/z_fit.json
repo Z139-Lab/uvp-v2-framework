@@ -1,8 +1,0 @@
-{
-  "method": "insufficient_multi_L",
-  "z_best": null,
-  "z_min": null,
-  "z_max": null,
-  "error_min": null,
-  "message": "Need at least two system sizes (L) for collapse-based z scan."
-}

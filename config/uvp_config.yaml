@@ -1,0 +1,31 @@
+global:
+  output_dir: uvp_results_main
+  seed_base: 42
+  parallel_workers: 6
+
+micro_rule_experiment:
+  enabled: true
+
+  topology: chain
+  system_sizes: [4000,]
+
+  stress_window: [0.1, 0.7]
+  n_stress_points: 33   # 🔥 關鍵（變成 step=0.001）
+
+  n_runs: 600           # 🔥 至少 300（最好 500）
+
+  baseline:
+    activation: logistic
+    memory: exponential
+    noise: gaussian
+    name: baseline
+
+  activation_variants: []
+  memory_variants: []
+  noise_variants: []
+
+topology_experiment:
+  enabled: false
+
+size_extension_experiment:
+  enabled: false
